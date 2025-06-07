@@ -62,6 +62,62 @@
     python -u bot.py
     ```
 
+## Инструкция по настройке
+
+### 1. Создание Telegram бота
+
+1. Откройте Telegram и найдите @BotFather
+2. Отправьте команду `/newbot`
+3. Следуйте инструкциям:
+   - Введите имя бота (например, "Мой Календарь")
+   - Введите username бота (должен заканчиваться на 'bot', например "my_calendar_bot")
+4. После создания бот выдаст вам `BOT_TOKEN` - сохраните его, он понадобится для `.env` файла
+
+### 2. Как узнать свой Telegram ID
+
+1. Найдите в Telegram бота @userinfobot
+2. Отправьте ему любое сообщение
+3. Бот ответит вам вашим ID
+4. Этот ID нужно добавить в `.env` файл в параметр `ADMIN_IDS`
+
+### 3. Настройка Google Calendar API
+
+#### Создание проекта
+1. Перейдите на [Google Cloud Console](https://console.cloud.google.com/)
+2. Создайте новый проект:
+   - Нажмите "Select a project" → "New Project"
+   - Введите название проекта
+   - Нажмите "Create"
+
+#### Настройка OAuth consent screen
+1. В меню слева выберите "APIs & Services" → "OAuth consent screen"
+2. Выберите "External" тип
+3. Заполните обязательные поля:
+   - App name
+   - User support email
+   - Developer contact information
+4. Добавьте scope: `https://www.googleapis.com/auth/calendar`
+5. Добавьте тестовых пользователей (ваш email)
+
+#### Создание учетных данных
+1. В меню слева выберите "APIs & Services" → "Credentials"
+2. Нажмите "Create Credentials" → "OAuth client ID"
+3. Выберите тип приложения "Web application"
+4. Добавьте Authorized redirect URIs:
+   - `http://localhost:8080/` (для разработки)
+   - URL вашего приложения (для продакшена)
+
+#### Сохранение учетных данных
+После создания вы получите:
+- Client ID
+- Client Secret
+
+Сохраните их в `.env` файл:
+```env
+GOOGLE_CLIENT_ID=ваш_client_id
+GOOGLE_CLIENT_SECRET=ваш_client_secret
+```
+
 ## Структура репозитория
 
 Проект следует следующей структуре:
